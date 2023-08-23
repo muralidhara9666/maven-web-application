@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('checkoutcode'){
             steps {
-             git branch: "${parameter.BranchName}" ,
+            
              git 'https://github.com/muralidhara9666/maven-web-application.git'
             }
         }
