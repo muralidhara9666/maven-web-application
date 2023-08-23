@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    
+    tools{
+    
+    maven 'maven3.9.4'
+    
+    }
+    
+    parameters {
+  choice choices: ['master', 'development', 'muralidhara9666'], description: 'select the branch name..', name: 'branchname'
+  string defaultValue: 'devops', description: 'change the default course name if you want.', name: 'coursename'
+    }
+    stages {
+        stage('checkoutcode'){
+            steps {
+             git branch: "${parameter.BranchName}" ,
+             git 'https://github.com/muralidhara9666/maven-web-application.git'
+            }
+        }
+        
+        stage('build'){
+            steps {
+                sh "mvn clean package"
+                
+            }
+        }
+    }
+}
