@@ -1,0 +1,48 @@
+pipeline{
+
+agent any
+
+tools{
+maven 'maven3.9.4'
+}
+
+stages{
+ // Checkout code from GitHub
+ stage('Checkoutcode'){
+ steps{
+git 'https://github.com/muralidhara9666/maven-web-application.git'
+}
+}
+
+//Build
+stage('Build'){
+steps{
+sh "mvn clean package"
+}
+}
+
+//ExecuteSonarQube Report
+stage('SonarQubeReport'){
+steps{
+sh "mvn clean sonar:sonar"
+}
+}
+
+//UploadArtifactsIntoNexus
+stage('uploadIntoNexus'){
+steps{
+sh "mvn clean deploy"
+}
+}
+/*
+//DeployAppIntoTomcat
+stage('DeployAppIntoTomcat'){
+steps{
+ sshagent(['eb515457-dd77-4738-b8dc-e73a94d672c8']) {
+ sh "scp -o StrictHostkeyChecking=no target/maven-web-application.war ec2-user@172.31.12.230:/opt/ apache-tomcat-9.0.76/webapps/"  
+}
+}
+}
+*/
+}
+}
