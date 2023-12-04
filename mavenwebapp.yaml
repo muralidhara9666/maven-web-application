@@ -9,4 +9,4 @@ spec:
   - name: mavenwebapp
     image: muralidhara9493/maven-web-application:1
     ports:
-    - containerPort: 8000
+    - containerPort: 8080
